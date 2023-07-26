@@ -1,4 +1,3 @@
-// App.tsx
 import Router from "./components/router/router";
 
 function App() {

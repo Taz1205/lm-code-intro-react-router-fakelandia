@@ -1,4 +1,3 @@
-// components/Header.tsx
 import Nav from "../nav/nav";
 
 const Header = () => {
