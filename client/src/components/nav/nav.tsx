@@ -1,22 +1,60 @@
-import { Link } from "react-router-dom";
+import { useMatch, Link } from "react-router-dom";
+import { ReactNode, CSSProperties } from "react";
+
+interface CustomNavLinkProps {
+  to: string;
+  children: ReactNode;
+  activeStyle: CSSProperties;
+  inactiveStyle: CSSProperties;
+}
+
+function CustomLink({
+  to,
+  children,
+  activeStyle,
+  inactiveStyle,
+}: CustomNavLinkProps) {
+  const match = useMatch({ path: to });
+
+  return (
+    <Link to={to} style={match ? activeStyle : inactiveStyle}>
+      {children}
+    </Link>
+  );
+}
 
 const Nav = () => {
+  const activeStyle = { color: "blue", textDecoration: "underline" };
+  const inactiveStyle = { color: "black", textDecoration: "none" };
+
   return (
     <ul className="flex space-x-8">
-      <li>
-        <Link className="underline hover:text-blue-500" to="/">
+      <li className="inline">
+        <CustomLink
+          to="/"
+          activeStyle={activeStyle}
+          inactiveStyle={inactiveStyle}
+        >
           Home
-        </Link>
+        </CustomLink>
       </li>
-      <li>
-        <Link className="underline hover:text-blue-500" to="misdemeanours">
+      <li className="inline">
+        <CustomLink
+          to="/misdemeanours"
+          activeStyle={activeStyle}
+          inactiveStyle={inactiveStyle}
+        >
           Misdemeanours
-        </Link>
+        </CustomLink>
       </li>
-      <li>
-        <Link className="underline hover:text-blue-500" to="confession">
-          Confess To Us
-        </Link>
+      <li className="inline">
+        <CustomLink
+          to="/confession"
+          activeStyle={activeStyle}
+          inactiveStyle={inactiveStyle}
+        >
+          Confession
+        </CustomLink>
       </li>
     </ul>
   );
