@@ -21,6 +21,12 @@
       {
         "document-title": "off"
       }
+    ],
+    "axe/forms": [
+      "default",
+      {
+        "select-name": "off"
+      }
     ]
   },
   "browserslist": [

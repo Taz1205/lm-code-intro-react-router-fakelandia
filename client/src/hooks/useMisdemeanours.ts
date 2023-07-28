@@ -1,0 +1,33 @@
+import { useEffect, useState } from "react";
+import { Misdemeanour } from "../../src/types/misdemeanours.types";
+
+const useMisdemeanours = () => {
+  const [misdemeanours, setMisdemeanours] = useState<Misdemeanour[]>([]);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const fetchMisdemeanours = async () => {
+      try {
+        const res = await fetch("/api/misdemeanours");
+
+        if (!res.ok) {
+          throw new Error("Could not fetch misdemeanours");
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setMisdemeanours(data);
+      } catch (error) {
+        setError(
+          error instanceof Error ? error : new Error("An error occurred")
+        );
+      }
+    };
+
+    fetchMisdemeanours();
+  }, []);
+
+  return { misdemeanours, error };
+};
+
+export default useMisdemeanours;
