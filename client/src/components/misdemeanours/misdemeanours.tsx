@@ -3,11 +3,15 @@ import { MisdemeanoursContext } from "../../components/misdemeanours/misdemeanou
 import MisdemeanoursTable from "../../components/misdemeanours/misdemeanour_table";
 
 const Misdemeanours: React.FC = () => {
-  const misdemeanours = useContext(MisdemeanoursContext);
+  const context = useContext(MisdemeanoursContext);
 
-  if (!misdemeanours) {
-    return <div>Loading...</div>;
+  if (!context) {
+    throw new Error(
+      "useMisdemeanours must be used within a MisdemeanoursProvider"
+    );
   }
+
+  const { misdemeanours } = context;
 
   return (
     <div className="m-0 p-0 border-0 bg-yellow-100">

@@ -3,7 +3,7 @@ import justiceImage from "../../assets/images/scale.jpg";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-yellow-50 max-h-full">
+    <div className="bg-yellow-100 max-h-full">
       <p>
         <strong>
           Welcome to the home of the Justice Department of Fakelandia!

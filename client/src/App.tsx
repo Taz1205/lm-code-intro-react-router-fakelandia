@@ -3,10 +3,10 @@ import useMisdemeanours from "./hooks/useMisdemeanours";
 import Router from "./components/router/router";
 
 function App() {
-  const misdemeanours = useMisdemeanours();
+  const misdemeanoursContext = useMisdemeanours();
 
   return (
-    <MisdemeanoursContext.Provider value={misdemeanours}>
+    <MisdemeanoursContext.Provider value={misdemeanoursContext}>
       <div className="min-h-screen">
         <Router />
       </div>
