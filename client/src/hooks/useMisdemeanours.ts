@@ -11,7 +11,7 @@ const useMisdemeanours = () => {
   useEffect(() => {
     const fetchMisdemeanours = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/misdemeanours/3");
+        const res = await fetch("http://localhost:8080/api/misdemeanours/10");
 
         if (!res.ok) {
           throw new Error("Could not fetch misdemeanours");
