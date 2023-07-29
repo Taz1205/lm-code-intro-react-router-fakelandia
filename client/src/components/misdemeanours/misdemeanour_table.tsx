@@ -17,7 +17,6 @@ const MisdemeanoursTable: React.FC<MisdemeanoursTableProps> = ({
   if (!Array.isArray(misdemeanours)) {
     return <div>There was an error loading the data.</div>;
   }
-
   return (
     <table>
       <thead>
@@ -26,6 +25,7 @@ const MisdemeanoursTable: React.FC<MisdemeanoursTableProps> = ({
           <th>Date</th>
           <th>Misdemeanour</th>
           <th>Punishment Idea</th>
+          <th>Image</th>
         </tr>
       </thead>
       <tbody>
@@ -38,6 +38,12 @@ const MisdemeanoursTable: React.FC<MisdemeanoursTableProps> = ({
               {misdemeanour.type}
             </td>
             <td>{misdemeanour.punishmentIdea}</td>
+            <td>
+              <img
+                src={`https://picsum.photos/200/200?random=${index}`}
+                alt="Random photos"
+              />{" "}
+            </td>
           </tr>
         ))}
       </tbody>
