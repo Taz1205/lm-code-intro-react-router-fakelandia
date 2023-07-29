@@ -3,13 +3,14 @@ import justiceImage from "../../assets/images/scale.jpg";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-yellow-100 max-h-full">
-      <p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-yellow-100">
+      <p className="text-center text-2xl">
         <strong>
           Welcome to the home of the Justice Department of Fakelandia!
         </strong>
       </p>
-      <p>
+      <br />
+      <p className="text-center text-2xl">
         <strong>
           Here you can browse a list of recent misdemeanours committed by our
           citizens, or you can confess to your own misdemeanour.
