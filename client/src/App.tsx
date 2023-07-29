@@ -1,6 +1,7 @@
 import { MisdemeanoursContext } from "../../client/src/components/misdemeanours/misdemeanour_context";
 import useMisdemeanours from "./hooks/useMisdemeanours";
 import Router from "./components/router/router";
+import "./index.css";
 
 function App() {
   const misdemeanoursContext = useMisdemeanours();

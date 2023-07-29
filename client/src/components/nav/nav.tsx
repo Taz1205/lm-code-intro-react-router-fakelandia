@@ -28,7 +28,7 @@ const Nav = () => {
   const inactiveStyle = { color: "black", textDecoration: "none" };
 
   return (
-    <ul className="flex space-x-8">
+    <ul className="flex space-x-96 text-3xl">
       <li className="inline">
         <CustomLink
           to="/"

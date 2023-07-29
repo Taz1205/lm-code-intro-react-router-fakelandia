@@ -8,7 +8,7 @@ export default {
         black: "#000000",
       },
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"],
+        bungeespice: ["BungeeSpice", "sans-serif"],
       },
     },
   },
