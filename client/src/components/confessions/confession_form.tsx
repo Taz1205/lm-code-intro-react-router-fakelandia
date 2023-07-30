@@ -83,7 +83,7 @@ const ConfessionForm: React.FC = () => {
             name="details"
             value={details}
             onChange={(e) => setDetails(e.target.value)}
-            className={`w-96 h-64 border-2 ${
+            className={`w-96 h-48 border-2 ${
               details.length >= 50 ? "border-green-500" : "border-red-500"
             } p-2`}
           />
@@ -99,7 +99,7 @@ const ConfessionForm: React.FC = () => {
         <button
           disabled={!isValid}
           type="submit"
-          className="border-4 font-bold px-2 py-1 text-sm bg-black text-white p-2 rounded border-red hover:bg-blue hover:text-yellow"
+          className="w-50 h-30 border-3 font-bold px-2 py-1 bg-red-400 text-white p-2 rounded border-red hover:bg-blue hover:text-yellow"
         >
           Confess
         </button>
