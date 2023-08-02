@@ -1,36 +1,24 @@
-import { useState, useEffect } from "react";
-import { Misdemeanour } from "../../src/types/misdemeanours.types";
+import { Misdemeanour } from "../types/misdemeanours.types";
+import { useQuery } from "react-query";
+import fetch from "cross-fetch";
 
-const useMisdemeanours = () => {
-  const [misdemeanours, setMisdemeanours] = useState<Misdemeanour[]>([]);
-  const [filterMisdemeanour, setFilterMisdemeanour] = useState<string | null>(
-    null
-  );
-  const [error, setError] = useState<Error | null>(null);
+export const useMisdemeanour = (amount: number) => {
+  const fetchData = async (): Promise<Misdemeanour[]> => {
+    const response = await fetch(
+      `http://localhost:8080/api/misdemeanours/${amount}`
+    );
+    if (!response.ok) {
+      throw new Error(`${response.status}`);
+    }
+    return await response.json();
+  };
 
-  useEffect(() => {
-    const fetchMisdemeanours = async () => {
-      try {
-        const res = await fetch("http://localhost:8080/api/misdemeanours/10");
+  const query = useQuery<Misdemeanour[], Error>({
+    queryKey: ["misdemeanours", amount],
+    queryFn: fetchData,
+  });
 
-        if (!res.ok) {
-          throw new Error("Could not fetch misdemeanours");
-        }
-
-        const data = await res.json();
-        console.log(data);
-        setMisdemeanours(data);
-      } catch (error) {
-        setError(
-          error instanceof Error ? error : new Error("An error occurred")
-        );
-      }
-    };
-
-    fetchMisdemeanours();
-  }, []);
-
-  return { misdemeanours, filterMisdemeanour, setFilterMisdemeanour, error };
+  return query;
 };
 
-export default useMisdemeanours;
+export default useMisdemeanour;

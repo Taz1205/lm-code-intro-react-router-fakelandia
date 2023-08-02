@@ -1,23 +1,30 @@
-import React, { useContext } from "react";
-import { MisdemeanoursContext } from "../../components/misdemeanours/misdemeanour_context";
-import MisdemeanoursTable from "../../components/misdemeanours/misdemeanour_table";
+import { useMisdemeanour } from "../../hooks/useMisdemeanours";
+import { Misdemeanour as MisdemeanourType } from "../../types/misdemeanours.types";
 
-const Misdemeanours: React.FC = () => {
-  const context = useContext(MisdemeanoursContext);
+const Misdemeanour = () => {
+  const { status, data, error } = useMisdemeanour(10);
 
-  if (!context) {
-    throw new Error(
-      "useMisdemeanours must be used within a MisdemeanoursProvider"
-    );
+  if (status === "loading") {
+    return <div>Loading...</div>;
   }
 
-  const { misdemeanours } = context;
+  if (status === "error") {
+    return <div>Error: {error.message}</div>;
+  }
 
-  return (
-    <div className="m-0 p-0 border-0 bg-yellow-100">
-      <MisdemeanoursTable misdemeanours={misdemeanours} />
-    </div>
-  );
+  if (status === "success" && data) {
+    return (
+      <div>
+        {data.map((misdemeanour: MisdemeanourType) => (
+          <div key={misdemeanour.citizenId}>
+            <h2>{misdemeanour.misdemeanour}</h2>
+            <p>{misdemeanour.date}</p>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return <div>No misdemeanour data.</div>;
 };
 
-export default Misdemeanours;
+export default Misdemeanour;

@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Misdemeanour } from "../../types/misdemeanours.types"; // Import the Misdemeanour type
+import { Misdemeanour } from "../../types/misdemeanours.types";
 import { MisdemeanoursContext } from "../../components/misdemeanours/misdemeanour_context";
 
 const MisdemeanoursList = () => {
@@ -29,10 +29,10 @@ const MisdemeanoursList = () => {
     <>
       <select value={selectedMisdemeanour} onChange={handleChange}>
         <option value="All">All</option>
-        <option value="Type1">Type1</option>
-        <option value="Type2">Type2</option>
-        <option value="Type3">Type3</option>
-        <option value="Type4">Type4</option>
+        <option value="rudeness">Rudeness</option>
+        <option value="vegetables">Vegetables</option>
+        <option value="lift">Lift</option>
+        <option value="united">United</option>
       </select>
 
       <ul>

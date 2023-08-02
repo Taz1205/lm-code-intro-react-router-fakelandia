@@ -1,22 +1,23 @@
-import { Misdemeanour } from "../../types/misdemeanours.types";
-
-type MisdemeanoursTableProps = {
-  misdemeanours: Misdemeanour[];
-};
+import { useMisdemeanour } from "../../hooks/useMisdemeanours";
 
 const emojiMapping = {
-  "Mild Public Rudeness": "🤪",
-  "Speaking in a Lift": "🗣",
-  "Not Eating Your Vegetables": "🥗",
-  "Supporting Manchester United": "😈",
+  rudeness: "🤪",
+  vegetables: "🗣",
+  lift: "🥗",
+  united: "😈",
 };
 
-const MisdemeanoursTable: React.FC<MisdemeanoursTableProps> = ({
-  misdemeanours,
-}) => {
-  if (!Array.isArray(misdemeanours)) {
+const MisdemeanoursTable: React.FC = () => {
+  const { data: misdemeanours, isLoading, isError } = useMisdemeanour(10);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError || !Array.isArray(misdemeanours)) {
     return <div>There was an error loading the data.</div>;
   }
+
   return (
     <table>
       <thead>
@@ -31,11 +32,15 @@ const MisdemeanoursTable: React.FC<MisdemeanoursTableProps> = ({
       <tbody>
         {misdemeanours.map((misdemeanour, index) => (
           <tr key={index}>
-            <td>{misdemeanour.citizenID}</td>
+            <td>{misdemeanour.citizenId}</td>
             <td>{new Date(misdemeanour.date).toLocaleDateString()}</td>
             <td>
-              {emojiMapping[misdemeanour.type as keyof typeof emojiMapping]}{" "}
-              {misdemeanour.type}
+              <td>
+                {emojiMapping[misdemeanour.misdemeanour]}{" "}
+                {misdemeanour.misdemeanour}
+              </td>
+
+              {misdemeanour.misdemeanour}
             </td>
             <td>{misdemeanour.punishmentIdea}</td>
             <td>
