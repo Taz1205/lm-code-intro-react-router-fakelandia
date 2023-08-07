@@ -5,7 +5,8 @@ type MisdemeanourContextType = {
   misdemeanours: Misdemeanour[];
   error: Error | null;
   filterMisdemeanour: string | null;
-  setFilterMisdemeanour: (misdemeanour: string | null) => void;
+  setFilterMisdemeanour: React.Dispatch<React.SetStateAction<string | null>>;
+  addMisdemeanour: (newMisdemeanour: Misdemeanour) => void;
 };
 
 export const MisdemeanoursContext = createContext<

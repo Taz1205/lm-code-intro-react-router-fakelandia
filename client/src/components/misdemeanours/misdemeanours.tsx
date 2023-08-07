@@ -14,7 +14,7 @@ const Misdemeanour = () => {
 
   if (status === "success" && data) {
     return (
-      <div>
+      <div className="flex flex-col min-h-screen bg-yellow-100">
         {data.map((misdemeanour: MisdemeanourType) => (
           <div key={misdemeanour.citizenId}>
             <h2>{misdemeanour.misdemeanour}</h2>
