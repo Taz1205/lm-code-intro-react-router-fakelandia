@@ -14,7 +14,6 @@ test("Check if button is initially disabled", () => {
 });
 
 test("type into subject, reason, and details fields and check for confess button", async () => {
-  // Look for the input fields by their initial values, which are empty strings
   const subjectInput = screen.getByLabelText("Subject");
   const detailsTextarea = screen.getByLabelText("Details");
 
