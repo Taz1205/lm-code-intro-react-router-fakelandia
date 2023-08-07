@@ -7,24 +7,21 @@ import Misdemeanour from "./misdemeanours";
 const queryClient = new QueryClient();
 
 const server = setupServer(
-  rest.get(
-    "http://localhost:8080/api/misdemeanours/:amount",
-    (req, res, ctx) => {
-      const amount = Number(req.params.amount);
-      if (isNaN(amount)) {
-        return res(ctx.status(400));
-      }
-      return res(
-        ctx.json(
-          new Array(amount).fill({
-            citizenId: 1720,
-            misdemeanour: "united",
-            date: "29/07/2023",
-          })
-        )
-      );
+  rest.get("http://localhost:8080/api/misdemeanours/:1", (req, res, ctx) => {
+    const amount = Number(req.params.amount);
+    if (isNaN(amount)) {
+      return res(ctx.status(400));
     }
-  )
+    return res(
+      ctx.json(
+        new Array(amount).fill({
+          citizenId: 1720,
+          misdemeanour: "united",
+          date: "10/08/2023",
+        })
+      )
+    );
+  })
 );
 
 beforeAll(() => server.listen());
@@ -42,12 +39,9 @@ test("renders loading state", () => {
 
 test("renders error state", async () => {
   server.use(
-    rest.get(
-      "http://localhost:8080/api/misdemeanours/:amount",
-      (req, res, ctx) => {
-        return res(ctx.status(500));
-      }
-    )
+    rest.get("http://localhost:8080/api/misdemeanours/:1", (_req, res, ctx) => {
+      return res(ctx.status(500));
+    })
   );
 
   render(
@@ -64,5 +58,5 @@ test("renders misdemeanour data", async () => {
       <Misdemeanour />
     </QueryClientProvider>
   );
-  expect(await screen.findByText("united")).toBeInTheDocument();
+  expect(await screen.findAllByText("united")).toBeInTheDocument();
 });

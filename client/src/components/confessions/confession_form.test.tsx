@@ -2,8 +2,10 @@ import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import ConfessionForm from "./confession_form";
 import userEvent from "@testing-library/user-event";
 
+const mockOnConfessionSubmit = jest.fn();
+
 beforeEach(() => {
-  render(<ConfessionForm />);
+  render(<ConfessionForm onConfessionSubmit={mockOnConfessionSubmit} />);
 });
 
 afterEach(() => {
@@ -41,39 +43,43 @@ test("type into subject, reason, and details fields and check for confess button
 });
 
 test("Check if button is enabled when form is valid with selected option as misdemeanour", async () => {
-  userEvent.type(
+  await userEvent.type(
     screen.getByRole("textbox", { name: /subject/i }),
     "This is a valid subject that is over ten characters"
   );
-  userEvent.type(
+  await userEvent.type(
     screen.getByRole("textbox", { name: /details/i }),
     "These are valid details that are 50 characters long, for the purpose of passing the validation check in the test."
   );
-  userEvent.selectOptions(
+  await userEvent.selectOptions(
     screen.getByRole("combobox", { name: /reason for contact/i }),
     "misdemeanour"
   );
 
-  const button = await screen.findByRole("button");
-  expect(button).toBeEnabled();
+  await waitFor(() => {
+    const button = screen.getByRole("button");
+    expect(button).toBeEnabled();
+  });
 });
 
 test("Check if button is enabled when form is valid with selected option as justTalk", async () => {
-  userEvent.type(
+  await userEvent.type(
     screen.getByRole("textbox", { name: /subject/i }),
     "This is a valid subject that is over ten characters"
   );
-  userEvent.type(
+  await userEvent.type(
     screen.getByRole("textbox", { name: /details/i }),
     "These are valid details that are 50 characters long, for the purpose of passing the validation check in the test."
   );
-  userEvent.selectOptions(
+  await userEvent.selectOptions(
     screen.getByRole("combobox", { name: /reason for contact/i }),
     "justTalk"
   );
 
-  const button = await screen.findByRole("button");
-  expect(button).toBeEnabled();
+  await waitFor(() => {
+    const button = screen.getByRole("button");
+    expect(button).toBeEnabled();
+  });
 });
 
 test("Check if button is disabled when form fields have no inputs", () => {

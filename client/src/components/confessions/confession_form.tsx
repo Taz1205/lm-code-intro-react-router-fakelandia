@@ -95,7 +95,7 @@ const ConfessionForm: React.FC<ConfessionFormProps> = ({
     >
       <div>
         <label className="text-center text-2xl">
-          <strong>Subject: </strong>
+          <strong>Subject </strong>
           <input
             type="text"
             name="subject"
@@ -115,7 +115,7 @@ const ConfessionForm: React.FC<ConfessionFormProps> = ({
       <br />
       <div>
         <label className="text-center text-2xl">
-          <strong>Reason for contact: </strong>
+          <strong>Reason for contact </strong>
           <select
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -136,7 +136,7 @@ const ConfessionForm: React.FC<ConfessionFormProps> = ({
       <br />
       <div className="flex flex-row items-center justify-start">
         <label className="text-center text-2xl">
-          <strong> Details: </strong>
+          <strong> Details </strong>
           <textarea
             name="details"
             value={details}
