@@ -1,36 +1,43 @@
 import { rest } from "msw";
 
 export const handlers = [
-  rest.get("http://localhost:8080/api/misdemeanours/5", (_req, res, ctx) => {
+  rest.post("http://localhost:8080/api/confess", (_req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({ success: true, message: "Confession received!" })
+    );
+  }),
+];
+
+[
+  rest.post("http://localhost:8080/api/confess", (req, res, ctx) => {
+    const { subject, reason, details } = JSON.parse(req.body as string);
+
+    if (!subject || !reason || !details) {
+      return res(
+        ctx.status(400),
+        ctx.json({
+          success: false,
+          message: "Missing required fields",
+        })
+      );
+    }
+
+    if (reason === "justTalk") {
+      return res(
+        ctx.json({
+          success: true,
+          justTalked: true,
+          message: "Thank you for reaching out to us!",
+        })
+      );
+    }
+
     return res(
       ctx.json({
-        misdemeanours: [
-          {
-            citizenId: 11276,
-            misdemeanour: "united",
-            date: "30/07/2023",
-          },
-          {
-            citizenId: 11397,
-            misdemeanour: "vegetables",
-            date: "30/07/2023",
-          },
-          {
-            citizenId: 9685,
-            misdemeanour: "rudeness",
-            date: "30/07/2023",
-          },
-          {
-            citizenId: 3880,
-            misdemeanour: "rudeness",
-            date: "30/07/2023",
-          },
-          {
-            citizenId: 19561,
-            misdemeanour: "united",
-            date: "30/07/2023",
-          },
-        ],
+        success: true,
+        justTalked: false,
+        message: "Thank you for your confession.",
       })
     );
   }),

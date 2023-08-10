@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import {
-  Misdemeanour,
-  MisdemeanourKind,
-} from "../../types/misdemeanours.types";
+import { Misdemeanour } from "../../types/misdemeanours.types";
 
 type ConfessionFormProps = {
   onConfessionSubmit: (newMisdemeanour: Misdemeanour) => void;
 };
 
-const ConfessionForm: React.FC<ConfessionFormProps> = ({
-  onConfessionSubmit,
-}) => {
+const ConfessionForm: React.FC<ConfessionFormProps> = () => {
   const [subject, setSubject] = useState("");
   const [reason, setReason] = useState("");
   const [details, setDetails] = useState("");
@@ -43,6 +38,12 @@ const ConfessionForm: React.FC<ConfessionFormProps> = ({
     setFeedback(null);
     setSubmitError(null);
 
+    console.log("Submitting confession with data:", {
+      subject: subject,
+      reason: reason,
+      details: details,
+    });
+
     try {
       const response = await fetch("http://localhost:8080/api/confess", {
         method: "POST",
@@ -56,33 +57,23 @@ const ConfessionForm: React.FC<ConfessionFormProps> = ({
         }),
       });
 
+      console.log("Server responded with:", response);
+
+      if (!response.ok) {
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+
       const responseData = await response.json();
 
-      if (responseData.success) {
-        setFeedback(responseData.message);
-
-        setSubject("");
-        setReason("");
-        setDetails("");
-
-        if (responseData.success && !responseData.justTalked) {
-          onConfessionSubmit({
-            title: subject,
-            type: reason,
-            misdemeanour: reason as MisdemeanourKind,
-            citizenID: <span>Your Citizen ID Placeholder</span>,
-            punishmentIdea: <span>Your Punishment Idea Placeholder</span>,
-            citizenId: 12345,
-            date: new Date().toISOString(),
-          });
-        }
-      } else {
-        setSubmitError(responseData.message);
-      }
+      console.log("Parsed server response:", responseData);
     } catch (error) {
-      setSubmitError(
-        "Network error. Please check your connection and try again."
-      );
+      if (error instanceof Error) {
+        console.error("Error submitting confession:", error.message);
+        setSubmitError(error.message);
+      } else {
+        console.error("An unknown error occurred:", error);
+        setSubmitError("An unexpected error occurred");
+      }
     }
 
     setIsLoading(false);

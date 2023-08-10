@@ -18,8 +18,6 @@ test("Check if button is initially disabled", () => {
 test("type into subject, reason, and details fields and check for confess button", async () => {
   const subjectInput = screen.getByLabelText("Subject");
   const detailsTextarea = screen.getByLabelText("Details");
-
-  // Now you can use these in your tests:
   await userEvent.type(subjectInput, "Subject Example");
   await userEvent.type(
     detailsTextarea,
@@ -123,5 +121,15 @@ test("Check if button is disabled when subject field is short", async () => {
 
   await waitFor(() => {
     expect(screen.getByRole("button", { name: /confess/i })).toBeDisabled();
+  });
+});
+
+test("it successfully fetches and displays misdemeanours", async () => {
+  render(<ConfessionForm onConfessionSubmit={mockOnConfessionSubmit} />);
+
+  await waitFor(() => {
+    expect(screen.getByText(/united/i)).toBeInTheDocument();
+    expect(screen.getByText(/vegetables/i)).toBeInTheDocument();
+    expect(screen.getByText(/rudeness/i)).toBeInTheDocument();
   });
 });
