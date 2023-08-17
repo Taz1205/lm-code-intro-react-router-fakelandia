@@ -1,30 +1,25 @@
-type DetailsTextAreaProps = {
+type DetailsTextareaProps = {
   value: string;
   onChange: (value: string) => void;
+  className?: string;
 };
 
-export const DetailsTextArea: React.FC<DetailsTextAreaProps> = ({
+const DetailsTextarea: React.FC<DetailsTextareaProps> = ({
   value,
   onChange,
+  className,
 }) => (
-  <div className="flex flex-row items-center justify-start">
-    <label className="text-center text-2xl">
-      <strong> Details </strong>
-      <textarea
-        name="details"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`w-96 h-48 border-2 ${
-          value.length >= 50 ? "border-green-500" : "border-red-500"
-        } p-2`}
-      />
-      {value.length < 50 && (
-        <p className="text-red-500">
-          Details should be at least 50 characters long.
-        </p>
-      )}
+  <div className={className}>
+    <label htmlFor="details" className="block mb-2 text-black font-bold">
+      Details
     </label>
+    <textarea
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      id="details"
+      className="w-full p-2 border rounded"
+    />
   </div>
 );
 
-export default DetailsTextArea;
+export default DetailsTextarea;

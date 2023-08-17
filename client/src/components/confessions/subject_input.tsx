@@ -1,30 +1,26 @@
+// subject_input.tsx
 type SubjectInputProps = {
   value: string;
   onChange: (value: string) => void;
+  className?: string;
 };
 
-export const SubjectInput: React.FC<SubjectInputProps> = ({
+const SubjectInput: React.FC<SubjectInputProps> = ({
   value,
   onChange,
+  className,
 }) => (
-  <div>
-    <label className="text-center text-2xl">
-      <strong>Subject </strong>
-      <input
-        type="text"
-        name="subject"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`border-2 ${
-          value.length >= 10 ? "border-green-500" : "border-red-500"
-        } p-2`}
-      />
-      {value.length < 10 && (
-        <p className="text-red-500">
-          Subject should be at least 10 characters long.
-        </p>
-      )}
+  <div className={className}>
+    <label htmlFor="subject">
+      <strong>Subject</strong>
     </label>
+    <input
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      id="subject"
+    />
   </div>
 );
+
 export default SubjectInput;
