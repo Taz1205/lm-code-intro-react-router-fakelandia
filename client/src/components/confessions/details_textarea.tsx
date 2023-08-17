@@ -9,7 +9,7 @@ const DetailsTextarea: React.FC<DetailsTextareaProps> = ({
   onChange,
   className,
 }) => (
-  <div className={className}>
+  <div className={`${className} h-20 w-90 p-5`}>
     <label htmlFor="details" className="block mb-2 text-black font-bold">
       Details
     </label>

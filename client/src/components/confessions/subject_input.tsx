@@ -10,8 +10,8 @@ const SubjectInput: React.FC<SubjectInputProps> = ({
   onChange,
   className,
 }) => (
-  <div className={className}>
-    <label htmlFor="subject">
+  <div className={`${className} h-20 w-90 p-5`}>
+    <label htmlFor="subject" className="block text-xs">
       <strong>Subject</strong>
     </label>
     <input
@@ -19,6 +19,7 @@ const SubjectInput: React.FC<SubjectInputProps> = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       id="subject"
+      className="h-full text-xs"
     />
   </div>
 );

@@ -9,7 +9,7 @@ export const ReasonSelect: React.FC<ReasonSelectProps> = ({
   onChange,
   className,
 }) => (
-  <div className={className}>
+  <div className={`${className} h-20 w-90 p-5`}>
     <label htmlFor="reason">
       <strong>Reason</strong>
     </label>

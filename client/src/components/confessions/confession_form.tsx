@@ -4,6 +4,7 @@ import SubjectInput from "./subject_input";
 import DetailsTextarea from "./details_textarea";
 import ReasonSelect from "./reason_select";
 import FeedbackSection from "./feedback_section";
+import ConfessButton from "./confess_button";
 
 const ConfessionForm: React.FC = () => {
   const [subject, setSubject] = useState("");
@@ -33,31 +34,11 @@ const ConfessionForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <SubjectInput
-          value={subject}
-          onChange={setSubject}
-          className="w-1/2 border rounded"
-        />
-        <ReasonSelect
-          value={reason}
-          onChange={setReason}
-          className="w-1/2 border rounded"
-        />
-        <DetailsTextarea
-          value={details}
-          onChange={setDetails}
-          className="w-1/2 h-32 border rounded"
-        />
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600 disabled:opacity-50 mt-2"
-        >
-          Confess
-        </button>
-      </div>
+    <form onSubmit={handleSubmit} className="space-y-0.5">
+      <SubjectInput value={subject} onChange={setSubject} />
+      <ReasonSelect value={reason} onChange={setReason} />
+      <DetailsTextarea value={details} onChange={setDetails} />
+      <ConfessButton isValid={isValid} />
       <FeedbackSection
         isLoading={isLoading}
         error={error}
