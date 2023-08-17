@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useConfess from "../../hooks/use_confess";
+import useConfess from "../../hooks/useConfess";
 import SubjectInput from "./subject_input";
 import DetailsTextarea from "./details_textarea";
 import ReasonSelect from "./reason_select";
