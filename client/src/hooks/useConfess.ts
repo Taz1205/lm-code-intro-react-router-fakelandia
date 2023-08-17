@@ -17,7 +17,7 @@ type UseConfessReturn = {
   }) => Promise<void>;
 };
 
-const useConfess = (): UseConfessReturn => {
+export const useConfess = (): UseConfessReturn => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<ConfessResponse | null>(null);
