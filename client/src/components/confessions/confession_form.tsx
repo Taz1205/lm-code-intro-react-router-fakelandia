@@ -5,7 +5,9 @@ type ConfessionFormProps = {
   onConfessionSubmit: (newMisdemeanour: Misdemeanour) => void;
 };
 
-const ConfessionForm: React.FC<ConfessionFormProps> = () => {
+const ConfessionForm: React.FC<ConfessionFormProps> = ({
+  onConfessionSubmit,
+}) => {
   const [subject, setSubject] = useState("");
   const [reason, setReason] = useState("");
   const [details, setDetails] = useState("");
@@ -29,7 +31,6 @@ const ConfessionForm: React.FC<ConfessionFormProps> = () => {
 
   useEffect(() => {
     checkValidity();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subject, reason, details]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -38,14 +39,8 @@ const ConfessionForm: React.FC<ConfessionFormProps> = () => {
     setFeedback(null);
     setSubmitError(null);
 
-    console.log("Submitting confession with data:", {
-      subject: subject,
-      reason: reason,
-      details: details,
-    });
-
     try {
-      const response = await fetch("http://localhost:8080/api/confess", {
+      const response = await fetch(`http://localhost:8080/api/confess`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,21 +52,29 @@ const ConfessionForm: React.FC<ConfessionFormProps> = () => {
         }),
       });
 
-      console.log("Server responded with:", response);
-
       if (!response.ok) {
         throw new Error(`Server responded with status: ${response.status}`);
       }
 
       const responseData = await response.json();
 
-      console.log("Parsed server response:", responseData);
+      if (responseData.success) {
+        setFeedback(responseData.message);
+
+        if (responseData.justTalked === false) {
+          onConfessionSubmit({
+            subject: subject,
+            reason: reason,
+            details: details,
+          });
+        }
+      } else {
+        throw new Error(responseData.message);
+      }
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error submitting confession:", error.message);
         setSubmitError(error.message);
       } else {
-        console.error("An unknown error occurred:", error);
         setSubmitError("An unexpected error occurred");
       }
     }
@@ -149,14 +152,14 @@ const ConfessionForm: React.FC<ConfessionFormProps> = () => {
         <button
           disabled={!isValid}
           type="submit"
-          className="w-50 h-30 border-3 font-bold px-2 py-1 bg-red-400 text-white p-2 rounded border-red hover:bg-blue hover:text-yellow"
+          className="w-50 h-30 border-3 font-bold px-2 py-1 bg-red-400 text-white p-3"
         >
           Confess
         </button>
       </div>
+      <br />
       {feedback && <p className="text-green-500 mt-4">{feedback}</p>}
       {isLoading && <p className="text-blue-500 mt-4">Submitting...</p>}
-      {feedback && <p className="text-green-500 mt-4">{feedback}</p>}
       {submitError && <p className="text-red-500 mt-4">{submitError}</p>}
     </form>
   );
